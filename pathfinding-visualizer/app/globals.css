@@ -1,0 +1,29 @@
+@import "tailwindcss";
+/* Tailwind directives – must be FIRST */
+
+/* ---------- colour variables ---------- */
+:root {
+  /* board states */
+  --cell-empty:   #f2f2f2;
+  --cell-wall:    #222222;
+  --cell-weight:  #94a3b8;
+  --cell-visited: #38bdf8;
+  --cell-path:    #fbbf24;
+  --cell-start:   #16a34a;
+  --cell-goal:    #dc2626;
+
+  /* 1 px grid lines */
+  --grid-line:    #cbd5e1;
+}
+
+.dark {
+  --cell-empty:   #1e293b;
+  --cell-wall:    #f8fafc;
+  /* weight/visited/path look fine against dark */
+  --grid-line:    #334155;
+}
+
+/* small helper for borders */
+.cell {
+  border: 1px solid var(--grid-line);
+}
