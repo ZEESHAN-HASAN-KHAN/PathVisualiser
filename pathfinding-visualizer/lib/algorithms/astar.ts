@@ -25,7 +25,7 @@ export default function astar(
   });
 
   const inRange = (x: number, y: number) =>
-    x >= 0 && y >= 0 && x < rows && y < cols && grid[x][y][0] !== 1;
+    x >= 0 && y >= 0 && x < rows && y < cols && grid[x][y]!== 1;
   const weight = (x: number, y: number) => (Number(grid[x][y]) === 2 ? 5 : 1);
 
   gScore[start[0]][start[1]] = 0;
