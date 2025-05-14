@@ -1,6 +1,8 @@
 # Pathfinding Visualizer
 
 Pathfinding Visualizer is an interactive web application built with [Next.js](https://nextjs.org) that allows users to visualize various pathfinding algorithms in action. It is a great tool for learning and understanding how algorithms like Dijkstra's, A\*, and others work in finding the shortest path between two points on a grid.
+![image](https://github.com/user-attachments/assets/a69bcb96-1302-43e5-9fda-6cc7d9c94e8c)
+
 
 ## Features
 
