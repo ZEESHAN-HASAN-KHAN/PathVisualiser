@@ -5,6 +5,7 @@ import * as Comlink from "comlink";
 import type { Grid as GridType, Coords } from "@/lib/types";
 import Controls from "./Controls";
 import Grid from "./Grid";
+import ControlsSidebar from "./ControlsSidebar";
 // Visualizer.tsx  (or wherever you spin up the worker)
 // import PathWorker from "@/lib/workers/pathWorker?worker";
 
@@ -19,6 +20,7 @@ export default function Visualizer() {
   const [start, setStart] = useState<Coords | null>(null);
   const [goal, setGoal] = useState<Coords | null>(null);
   const [running, setRunning] = useState(false);
+  const [speed, setSpeed] = useState(20); // 5‑100 ms per frame
 
   /* ---------- worker proxy ---------- */
   const workerProxy = useMemo(() => {
@@ -41,7 +43,7 @@ export default function Visualizer() {
 
   /* ---------- animation ---------- */
   function animate(visited: Coords[], path: Coords[]) {
-    const SPEED = 20;
+    const SPEED = speed;
 
     // visited phase
     visited.forEach(([x, y], idx) => {
@@ -93,29 +95,61 @@ export default function Visualizer() {
   }
 
   return (
-    <>
-      <h1 className="text-3xl font-bold mb-2 text-slate-100">
-        Path‑Finding Visualizer 2.0
-      </h1>
+    <div className="flex gap-6">
+      {/* grid board */}
+      <div className="p-4 bg-slate-900/50 rounded-2xl">
+        <Grid
+          grid={grid}
+          mode={mode}
+          setGrid={setGrid}
+          setStart={setStart}
+          setGoal={setGoal}
+        />
+      </div>
 
-      <Controls
-        running={running}
-        disabled={!start || !goal}
-        mode={mode}
-        setMode={setMode}
-        onStart={run}
-        onClear={clearBoard}
+      {/* sidebar */}
+      <ControlsSidebar
         algo={algo}
         setAlgo={setAlgo}
-      />
-
-      <Grid
-        grid={grid}
+        speed={speed}
+        setSpeed={setSpeed}
         mode={mode}
-        setGrid={setGrid}
-        setStart={setStart}
-        setGoal={setGoal}
+        setMode={setMode}
+        onRandomMaze={() => {
+          /* todo */
+        }}
+        onClearPath={() => {
+          /* todo */
+        }}
+        onClearAll={clearBoard}
+        onStart={run}
+        running={running}
+        disabled={!start || !goal}
       />
-    </>
+    </div>
+    // <>
+    //   <h1 className="text-xl font-semibold mb-6 tracking-wide text-center">
+    //     Path‑Finding Visualizer 2.0
+    //   </h1>
+
+    //   <Controls
+    //     running={running}
+    //     disabled={!start || !goal}
+    //     mode={mode}
+    //     setMode={setMode}
+    //     onStart={run}
+    //     onClear={clearBoard}
+    //     algo={algo}
+    //     setAlgo={setAlgo}
+    //   />
+
+    //   <Grid
+    //     grid={grid}
+    //     mode={mode}
+    //     setGrid={setGrid}
+    //     setStart={setStart}
+    //     setGoal={setGoal}
+    //   />
+    // </>
   );
 }

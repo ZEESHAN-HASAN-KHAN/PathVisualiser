@@ -43,30 +43,34 @@ export default function Grid({
   };
 
   return (
-    <div
-      className="select-none"
-      onMouseLeave={() => setDrag(false)}
-      onMouseUp={() => setDrag(false)}
-      onTouchEnd={() => setDrag(false)}
-    >
-      {grid.map((row, r) => (
-        <div key={r} className="flex">
-          {row.map((_, c) => (
-            <Cell
-              key={c}
-              state={grid[r][c]}
-              onMouseDown={() => {
-                setDrag(true);
-                handleClick(r, c);
-              }}
-              onMouseEnter={() => drag && mode === "wall" && handleClick(r, c)}
-              onTouchStart={() => handleClick(r, c)}
-              data-row={r}
-              data-col={c}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="overflow-auto">
+      <div
+        className="select-none"
+        onMouseLeave={() => setDrag(false)}
+        onMouseUp={() => setDrag(false)}
+        onTouchEnd={() => setDrag(false)}
+      >
+        {grid.map((row, r) => (
+          <div key={r} className="flex">
+            {row.map((_, c) => (
+              <Cell
+                key={c}
+                state={grid[r][c]}
+                onMouseDown={() => {
+                  setDrag(true);
+                  handleClick(r, c);
+                }}
+                onMouseEnter={() =>
+                  drag && mode === "wall" && handleClick(r, c)
+                }
+                onTouchStart={() => handleClick(r, c)}
+                data-row={r}
+                data-col={c}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -26,7 +26,7 @@ const Cell: React.FC<CellProps> = ({ state, className, ...rest }) => {
   return (
     <div
       {...rest}
-      className={clsx("w-5 h-5 cell transition-colors", className)}
+      className={clsx("w-5 h-5 cell fade", className)}
       style={{ background: bg }}
     />
   );

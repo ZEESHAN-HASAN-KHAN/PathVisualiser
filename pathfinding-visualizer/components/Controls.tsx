@@ -1,6 +1,8 @@
+/* overwrite the Controls component completely */
 "use client";
 
 import clsx from "clsx";
+import { Play, Eraser, Flag, MapPin, MousePointer2 } from "lucide-react";
 
 interface Props {
   running: boolean;
@@ -23,48 +25,67 @@ export default function Controls({
   algo,
   setAlgo,
 }: Props) {
-  const btn = "px-3 py-1 rounded text-white text-sm";
-  const modeBtn = (m: typeof mode, label: string, color: string) => (
+  const ModeBtn = ({
+    id,
+    icon: Icon,
+    tooltip,
+  }: {
+    id: "wall" | "start" | "goal";
+    icon: any;
+    tooltip: string;
+  }) => (
     <button
-      onClick={() => setMode(m)}
+      onClick={() => setMode(id)}
+      title={tooltip}
       className={clsx(
-        "border px-2 py-1 rounded text-xs",
-        mode === m ? color : "bg-slate-600"
+        "p-2 rounded-lg hover:bg-slate-700",
+        mode === id && "bg-slate-700"
       )}
     >
-      {label}
+      <Icon size={18} />
     </button>
   );
 
   return (
-    <div className="flex items-center gap-2 mb-4">
+    <div className="flex items-center justify-between mb-4">
+      {/* left cluster */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onStart}
+          disabled={running || disabled}
+          className={clsx(
+            "flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-sm",
+            (running || disabled) && "opacity-40 cursor-not-allowed"
+          )}
+        >
+          <Play size={16} /> {running ? "Running…" : "Visualise"}
+        </button>
+
+        <button
+          onClick={onClear}
+          title="Clear board"
+          className="p-2 rounded-lg hover:bg-slate-700"
+        >
+          <Eraser size={18} />
+        </button>
+      </div>
+
+      {/* centre cluster */}
+      <div className="flex items-center gap-2">
+        <ModeBtn id="wall" icon={MousePointer2} tooltip="Paint walls" />
+        <ModeBtn id="start" icon={MapPin} tooltip="Set start" />
+        <ModeBtn id="goal" icon={Flag} tooltip="Set goal" />
+      </div>
+
+      {/* right cluster */}
       <select
-        className="border px-2 py-1 rounded text-sm"
         value={algo}
         onChange={(e) => setAlgo(e.target.value as any)}
+        className="bg-slate-800 px-3 py-2 rounded-lg text-sm"
       >
         <option value="dijkstra">Dijkstra</option>
         <option value="astar">A*</option>
       </select>
-
-      <button
-        onClick={onStart}
-        disabled={running || disabled}
-        className={clsx(
-          btn,
-          running || disabled ? "bg-blue-300" : "bg-blue-600"
-        )}
-      >
-        {running ? "Running…" : "Visualise"}
-      </button>
-
-      <button onClick={onClear} className={clsx(btn, "bg-slate-500")}>
-        Clear
-      </button>
-
-      {modeBtn("wall", "Walls", "bg-slate-700")}
-      {modeBtn("start", "Set Start", "bg-emerald-600")}
-      {modeBtn("goal", "Set Goal", "bg-red-600")}
     </div>
   );
 }
