@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@datastructures-js/priority-queue": "^6.3.3",
-    "@prisma/client": "^6.7.0",
     "clsx": "^2.1.1",
     "comlink": "^4.4.2",
     "lucide-react": "^0.510.0",
@@ -28,7 +27,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "postcss": "^8.5.3",
-    "prisma": "^6.7.0",
     "tailwindcss": "^4.1.6",
     "typescript": "^5"
   }
