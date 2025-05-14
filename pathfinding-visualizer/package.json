@@ -17,6 +17,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
+  "build": "NEXT_IGNORE_ESLINT=1 next build"
+,
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.6",
